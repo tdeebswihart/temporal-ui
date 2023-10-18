@@ -21,10 +21,8 @@ PROTO_OUT := api
 PROTO_IMPORTS := \
 	-I $(PROTO_ROOT) \
 	-I ./proto/dependencies/github.com/grpc-ecosystem/grpc-gateway/ \
-	-I ./proto/dependencies/github.com/gogo/googleapis/ \
 	-I ./proto/dependencies/api/ \
 	-I ./proto/dependencies/
-PROTO_REFS := Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/duration.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/empty.proto=github.com/gogo/protobuf/types,Mgoogle/protobuf/descriptor.proto=github.com/gogo/protobuf/protoc-gen-gogo/descriptor,Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,Mgoogle/api/annotations.proto=github.com/gogo/googleapis/google/api
 OPENAPI_OUT := openapi/assets
 
 ##### Build #####
@@ -40,7 +38,8 @@ build-grpc:
 	mkdir -p $(PROTO_OUT)
 	$(foreach PROTO_DIR,$(PROTO_DIRS),\
 		protoc $(PROTO_IMPORTS) \
-			--gogoslick_out=plugins=grpc,paths=source_relative,$(PROTO_REFS):$(PROTO_OUT) \
+			--go_out=paths=source_relative:$(PROTO_OUT) \
+			--go-grpc_out=paths=source_relative:$(PROTO_OUT) \
 			--grpc-gateway_out=allow_patch_feature=false,paths=source_relative:$(PROTO_OUT) \
 			--openapiv2_out=$(OPENAPI_OUT) \
 		$(PROTO_DIR)*.proto \
@@ -49,11 +48,9 @@ build-grpc:
 ##### Install dependencies #####
 
 install-utils:
-	@go install github.com/temporalio/gogo-protobuf/protoc-gen-gogoslick@latest
-	@GO111MODULE=off go get github.com/temporalio/gogo-protobuf/protoc-gen-gogoslick
+	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-
-	@go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway@latest
+	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 
 ##### Test #####

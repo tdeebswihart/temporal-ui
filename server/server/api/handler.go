@@ -26,11 +26,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gogo/gateway"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/temporalio/ui-server/v2/server/auth"
 	"github.com/temporalio/ui-server/v2/server/config"
@@ -169,11 +169,9 @@ func getTemporalClientMux(c echo.Context, temporalConn *grpc.ClientConn, apiMidd
 }
 
 func withMarshaler() runtime.ServeMuxOption {
-	jsonpb := &gateway.JSONPb{
-		EmitDefaults: true,
-		Indent:       "  ",
-		OrigName:     false,
-	}
-
-	return runtime.WithMarshalerOption(runtime.MIMEWildcard, jsonpb)
+	return runtime.WithMarshalerOption(runtime.MIMEWildcard, protoJsonMarshaler{
+		mOpts: protojson.MarshalOptions{
+			Indent: "  ",
+		},
+	})
 }
