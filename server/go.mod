@@ -2,7 +2,7 @@ module github.com/temporalio/ui-server/v2
 
 go 1.20
 
-replace go.temporal.io/api => ../../my-api-go
+replace go.temporal.io/api => github.com/tdeebswihart/temporal-api-go v0.0.0-20231018181853-a2111ee07221
 
 require (
 	github.com/coreos/go-oidc/v3 v3.1.0
