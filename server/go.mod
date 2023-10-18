@@ -2,17 +2,18 @@ module github.com/temporalio/ui-server/v2
 
 go 1.20
 
+replace go.temporal.io/api => ../../my-api-go
+
 require (
 	github.com/coreos/go-oidc/v3 v3.1.0
 	github.com/gorilla/securecookie v1.1.1
-	github.com/grpc-ecosystem/grpc-gateway v1.16.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	github.com/labstack/echo/v4 v4.9.1
 	github.com/stretchr/testify v1.8.4
 	github.com/urfave/cli/v2 v2.3.0
 	go.temporal.io/api v1.24.1-0.20231020155655-224b196919ea
 	golang.org/x/net v0.17.0
-	golang.org/x/oauth2 v0.11.0
+	golang.org/x/oauth2 v0.12.0
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
 	gopkg.in/validator.v2 v2.0.0-20210331031555-b37d688a7fb0
@@ -22,10 +23,8 @@ require (
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect

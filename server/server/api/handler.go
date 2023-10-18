@@ -154,7 +154,7 @@ func getTemporalClientMux(c echo.Context, temporalConn *grpc.ClientConn, apiMidd
 			version.WithVersionHeader(c),
 			// This is necessary to get error details properly
 			// marshalled in unary requests.
-			runtime.WithProtoErrorHandler(runtime.DefaultHTTPProtoErrorHandler),
+			runtime.WithErrorHandler(runtime.DefaultHTTPErrorHandler),
 		)...,
 	)
 
